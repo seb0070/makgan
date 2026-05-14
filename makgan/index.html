@@ -7,128 +7,147 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0c0c0d;
-      --surface: #161618;
-      --surface2: #1e1e21;
-      --surface3: #262629;
-      --border: rgba(255,255,255,0.08);
-      --border2: rgba(255,255,255,0.12);
-      --accent: #8b7ff5;
-      --accent-dim: rgba(139,127,245,0.12);
-      --accent-dim2: rgba(139,127,245,0.2);
-      --text: #f0ede8;
-      --text-sub: #8a877f;
-      --text-dim: #3a3935;
-      --green: #4ade80;
-      --green-dim: rgba(74,222,128,0.1);
+      --bg: #F7F5F2;
+      --surface: #FFFFFF;
+      --surface2: #F0EDE8;
+      --surface3: #E8E4DE;
+      --border: rgba(0,0,0,0.08);
+      --border2: rgba(0,0,0,0.14);
+      --accent: #FF6B35;
+      --accent-dim: rgba(255,107,53,0.08);
+      --accent-dim2: rgba(255,107,53,0.18);
+      --text: #1A1816;
+      --text-sub: #6B6560;
+      --text-dim: #B8B3AC;
+      --green: #22A06B;
+      --green-dim: rgba(34,160,107,0.08);
       --r: 14px;
       --r-lg: 20px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; background: var(--bg); }
     body { font-family: 'Noto Sans KR', sans-serif; color: var(--text); display: flex; justify-content: center; }
-    .phone { width: 100%; max-width: 390px; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
-    .screen { display: none; flex-direction: column; flex: 1; padding: 20px 20px 36px; animation: fadeIn 0.25s ease; }
+    .phone { width: 100%; max-width: 390px; min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); }
+    .screen { display: none; flex-direction: column; flex: 1; padding: 24px 20px 40px; animation: fadeIn 0.22s ease; }
     .screen.active { display: flex; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-    .app-logo { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 2px; }
-    .app-logo span { color: var(--accent); }
-    .app-tagline { font-size: 11px; color: var(--text-sub); font-family: 'DM Mono', monospace; }
-    .screen-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.3; margin-bottom: 6px; }
-    .screen-sub { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
-    .section { margin-bottom: 20px; }
-    .section-label { font-size: 11px; font-weight: 500; color: var(--text-sub); letter-spacing: 1.2px; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 10px; }
-    .input-field { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; color: var(--text); font-size: 15px; font-family: 'Noto Sans KR', sans-serif; outline: none; transition: border-color 0.15s; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+    .app-logo { display: block; margin-bottom: 2px; }
+    .app-logo svg { display: block; }
+    .app-tagline { font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; letter-spacing: 0.3px; }
+
+    .section { margin-bottom: 22px; }
+    .section-label { font-size: 11px; font-weight: 600; color: var(--text-sub); letter-spacing: 1.4px; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 10px; }
+
+    .input-field { width: 100%; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r); padding: 14px 16px; color: var(--text); font-size: 15px; font-family: 'Noto Sans KR', sans-serif; outline: none; transition: border-color 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
     .input-field:focus { border-color: var(--accent); }
     .input-field::placeholder { color: var(--text-dim); }
-    .onboard-q { margin-bottom: 20px; }
-    .onboard-q-text { font-size: 14px; font-weight: 500; margin-bottom: 10px; line-height: 1.5; }
+
+    .onboard-q { margin-bottom: 22px; }
+    .onboard-q-text { font-size: 15px; font-weight: 600; margin-bottom: 12px; line-height: 1.5; color: var(--text); }
     .onboard-opts { display: flex; flex-direction: column; gap: 8px; }
-    .onboard-opt { padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface); color: var(--text-sub); font-size: 13px; cursor: pointer; transition: all 0.15s; font-family: 'Noto Sans KR', sans-serif; text-align: left; }
+    .onboard-opt { padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--r); background: var(--surface); color: var(--text-sub); font-size: 14px; cursor: pointer; transition: all 0.15s; font-family: 'Noto Sans KR', sans-serif; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
     .onboard-opt.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
-    .onboard-progress { display: flex; gap: 6px; margin-bottom: 28px; }
+    .onboard-progress { display: flex; gap: 6px; margin-bottom: 32px; }
     .progress-dot { height: 3px; flex: 1; border-radius: 2px; background: var(--surface3); transition: background 0.3s; }
     .progress-dot.active { background: var(--accent); }
-    .time-display { font-size: 42px; font-weight: 900; color: var(--accent); letter-spacing: -2px; font-family: 'DM Mono', monospace; margin-bottom: 4px; line-height: 1; }
-    .time-label { font-size: 13px; color: var(--text-sub); margin-bottom: 16px; }
+
+    .time-display { font-size: 48px; font-weight: 900; color: var(--accent); letter-spacing: -3px; font-family: 'DM Mono', monospace; margin-bottom: 4px; line-height: 1; }
+    .time-label { font-size: 13px; color: var(--text-sub); margin-bottom: 18px; }
     input[type=range] { width: 100%; -webkit-appearance: none; height: 4px; border-radius: 2px; background: var(--surface3); outline: none; margin-bottom: 8px; }
-    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); cursor: pointer; box-shadow: 0 0 0 4px var(--accent-dim2); }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); cursor: pointer; box-shadow: 0 2px 8px rgba(255,107,53,0.35); }
     .slider-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; }
-    .btn-primary { width: 100%; padding: 16px; background: var(--accent); border: none; border-radius: var(--r); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.18s; }
-    .btn-primary:hover { opacity: 0.9; }
-    .btn-primary:disabled { background: var(--surface3); color: var(--text-dim); cursor: not-allowed; }
-    .btn-secondary { width: 100%; padding: 14px; background: transparent; border: 1px solid var(--border); border-radius: var(--r); color: var(--text-sub); font-size: 14px; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s; margin-top: 10px; }
+
+    .btn-primary { width: 100%; padding: 16px; background: var(--accent); border: none; border-radius: var(--r); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.18s; box-shadow: 0 4px 16px rgba(255,107,53,0.3); }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-primary:disabled { background: var(--surface3); color: var(--text-dim); cursor: not-allowed; box-shadow: none; transform: none; }
+    .btn-secondary { width: 100%; padding: 14px; background: transparent; border: 1.5px solid var(--border); border-radius: var(--r); color: var(--text-sub); font-size: 14px; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s; margin-top: 10px; }
     .btn-secondary:hover { border-color: var(--border2); color: var(--text); }
-    .btn-skip { background: none; border: none; color: var(--text-dim); font-size: 13px; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; text-align: center; padding: 10px; width: 100%; }
-    .place-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; margin-bottom: 12px; animation: cardIn 0.4s ease forwards; opacity: 0; }
-    @keyframes cardIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-    .place-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-    .place-name { font-size: 17px; font-weight: 700; margin-bottom: 3px; }
+    .btn-skip { background: none; border: none; color: var(--text-dim); font-size: 13px; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; text-align: center; padding: 12px; width: 100%; }
+
+    .place-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-lg); padding: 20px; margin-bottom: 12px; animation: cardIn 0.35s ease forwards; opacity: 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    @keyframes cardIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .place-card-top { margin-bottom: 12px; }
+    .place-name { font-size: 18px; font-weight: 700; margin-bottom: 3px; color: var(--text); }
     .place-cat { font-size: 12px; color: var(--text-sub); }
-    .place-rating { font-size: 13px; font-weight: 600; color: #f59e0b; font-family: 'DM Mono', monospace; }
-    .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-    .chip { font-size: 11px; padding: 4px 10px; border-radius: 100px; border: 1px solid var(--border); color: var(--text-sub); }
-    .chip.ok { color: var(--green); background: var(--green-dim); border-color: rgba(74,222,128,0.2); }
-    .ai-reason { font-size: 13px; color: var(--text-sub); line-height: 1.6; padding-top: 12px; border-top: 1px solid var(--border); }
-    .ai-tag { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 600; color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(139,127,245,0.2); padding: 2px 8px; border-radius: 100px; margin-right: 6px; font-family: 'DM Mono', monospace; }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+    .chip { font-size: 12px; padding: 5px 11px; border-radius: 100px; border: 1.5px solid var(--border); color: var(--text-sub); background: var(--surface2); }
+    .chip.ok { color: var(--green); background: var(--green-dim); border-color: rgba(34,160,107,0.2); font-weight: 500; }
+    .ai-reason { font-size: 13px; color: var(--text-sub); line-height: 1.7; padding-top: 14px; border-top: 1px solid var(--border); }
+    .ai-tag { display: inline-flex; align-items: center; font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(255,107,53,0.2); padding: 2px 8px; border-radius: 100px; margin-right: 6px; font-family: 'DM Mono', monospace; letter-spacing: 0.3px; }
+
     .action-row { display: flex; gap: 8px; margin-top: 4px; }
-    .action-btn { flex: 1; padding: 12px 6px; border: 1px solid var(--border); border-radius: var(--r); font-size: 12px; color: var(--text-sub); cursor: pointer; background: transparent; font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s; text-align: center; }
-    .action-btn.yes { background: var(--accent); border-color: var(--accent); color: white; font-weight: 600; }
-    .timer-wrap { display: flex; flex-direction: column; align-items: center; padding: 16px 0; }
-    .timer-ring { position: relative; width: 160px; height: 160px; margin-bottom: 16px; }
+    .action-btn { flex: 1; padding: 13px 6px; border: 1.5px solid var(--border); border-radius: var(--r); font-size: 13px; color: var(--text-sub); cursor: pointer; background: var(--surface); font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s; text-align: center; font-weight: 500; }
+    .action-btn:hover { border-color: var(--border2); color: var(--text); }
+    .action-btn.yes { background: var(--accent); border-color: var(--accent); color: white; font-weight: 700; box-shadow: 0 4px 12px rgba(255,107,53,0.25); }
+
+    .timer-wrap { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
+    .timer-ring { position: relative; width: 168px; height: 168px; margin-bottom: 16px; }
     .timer-ring svg { transform: rotate(-90deg); }
     .timer-ring circle { fill: none; stroke-width: 6; }
     .timer-ring .track { stroke: var(--surface3); }
     .timer-ring .fill { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
     .timer-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .timer-val { font-size: 36px; font-weight: 900; font-family: 'DM Mono', monospace; color: var(--text); letter-spacing: -1px; }
-    .timer-unit { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
-    .timer-status { font-size: 13px; color: var(--text-sub); text-align: center; }
-    .dest-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .dest-icon { width: 36px; height: 36px; background: var(--accent-dim); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-    .dest-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .timer-val { font-size: 38px; font-weight: 900; font-family: 'DM Mono', monospace; color: var(--text); letter-spacing: -1px; }
+    .timer-unit { font-size: 12px; color: var(--text-sub); margin-top: 3px; }
+    .timer-status { font-size: 13px; color: var(--text-sub); text-align: center; line-height: 1.6; }
+
+    .dest-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r); padding: 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); cursor: pointer; transition: border-color 0.15s; }
+    .dest-card:hover { border-color: var(--accent); }
+    .dest-icon { width: 40px; height: 40px; background: var(--accent-dim); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .dest-name { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
     .dest-sub { font-size: 12px; color: var(--text-sub); }
+    .dest-map-hint { font-size: 11px; color: var(--accent); margin-top: 2px; font-weight: 500; }
+
     .loading-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
     .loading-dots { display: flex; gap: 8px; }
-    .loading-dots span { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 1.4s infinite; }
+    .loading-dots span { width: 9px; height: 9px; background: var(--accent); border-radius: 50%; animation: pulse 1.4s infinite; }
     .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
     .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes pulse { 0%,80%,100%{transform:scale(0.6);opacity:0.3} 40%{transform:scale(1);opacity:1} }
-    .loading-text { font-size: 14px; color: var(--text-sub); text-align: center; }
-    .loading-step { font-size: 12px; color: var(--text-dim); font-family: 'DM Mono', monospace; margin-top: 4px; text-align: center; }
-    .config-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; margin-bottom: 16px; }
-    .config-label { font-size: 11px; font-weight: 500; color: var(--text-sub); letter-spacing: 1px; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 8px; }
-    .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px); background: var(--green); color: #0c0c0d; padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 700; transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); z-index: 999; white-space: nowrap; max-width: 90vw; }
+    @keyframes pulse { 0%,80%,100%{transform:scale(0.6);opacity:0.25} 40%{transform:scale(1);opacity:1} }
+    .loading-text { font-size: 15px; color: var(--text); text-align: center; font-weight: 600; }
+    .loading-step { font-size: 12px; color: var(--text-sub); font-family: 'DM Mono', monospace; margin-top: 4px; text-align: center; }
+
+    .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-90px); background: var(--green); color: white; padding: 13px 26px; border-radius: 100px; font-size: 14px; font-weight: 700; transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); z-index: 999; white-space: nowrap; max-width: 90vw; box-shadow: 0 4px 20px rgba(34,160,107,0.35); }
     .toast.show { transform: translateX(-50%) translateY(0); }
     .spacer { flex: 1; }
-    .list-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: border-color 0.15s; }
-    .list-card:hover { border-color: var(--accent); }
-    .list-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+
+    .list-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r); padding: 14px 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .list-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(255,107,53,0.1); }
+    .list-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; color: var(--text); }
     .list-sub { font-size: 12px; color: var(--text-sub); }
-    .list-walk { font-size: 13px; font-weight: 600; color: var(--accent); font-family: 'DM Mono', monospace; }
+    .list-walk { font-size: 14px; font-weight: 700; color: var(--accent); font-family: 'DM Mono', monospace; }
     .list-time { font-size: 11px; color: var(--text-dim); margin-top: 2px; text-align: right; }
-    .store-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 12px 16px; margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s; }
+
+    .store-item { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r); padding: 13px 16px; margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
     .store-item:hover { border-color: var(--accent); }
-    .store-item-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .store-item-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; color: var(--text); }
     .store-item-addr { font-size: 12px; color: var(--text-sub); }
-    .loc-btn { width: 100%; padding: 14px; background: var(--accent-dim); border: 1px solid rgba(139,127,245,0.3); border-radius: var(--r); color: var(--accent); font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; margin-bottom: 12px; }
+
+    .loc-btn { width: 100%; padding: 14px; background: var(--accent-dim); border: 1.5px solid rgba(255,107,53,0.25); border-radius: var(--r); color: var(--accent); font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; margin-bottom: 10px; transition: all 0.15s; }
+    .loc-btn:hover { background: var(--accent-dim2); }
+
+    .selected-store-box { background: var(--accent-dim); border: 1.5px solid rgba(255,107,53,0.25); border-radius: var(--r); padding: 13px 16px; margin-top: 8px; }
+    .selected-store-label { font-size: 11px; color: var(--accent); margin-bottom: 3px; font-weight: 600; font-family: 'DM Mono', monospace; letter-spacing: 0.5px; }
+    .selected-store-name { font-size: 14px; font-weight: 700; color: var(--text); }
+    .selected-store-addr { font-size: 12px; color: var(--text-sub); margin-top: 1px; }
   </style>
 </head>
 <body>
 <div class="phone">
 
-  <!-- Config 화면 제거 — 바로 온보딩으로 -->
-  <div class="screen active" id="screen-config" style="justify-content:center;">
-    <div style="margin-bottom:32px;">
-      <div class="app-logo">막<span>간</span></div>
-      <div class="app-tagline">MAKGAN · 웨이팅을 웨이팅하지 마세요</div>
+  <!-- 시작 화면 -->
+  <div class="screen active" id="screen-config" style="justify-content:center; align-items:center; text-align:center;">
+    <div style="margin-bottom:48px;">
+      <div class="app-logo app-logo-xl"></div>
+      <div style="font-size:14px; color:var(--text-sub); line-height:1.7; margin-top:12px;">웨이팅을 웨이팅하지 마세요<br>AI가 딱 맞는 곳을 추천해드릴게요</div>
     </div>
-    <button class="btn-primary" onclick="startApp()">시작하기</button>
+    <button class="btn-primary" style="max-width:280px;" onclick="startApp()">시작하기</button>
   </div>
 
-  <!-- Onboarding -->
+  <!-- 온보딩 -->
   <div class="screen" id="screen-onboard">
-    <div class="app-logo" style="margin-bottom:24px;">막<span>간</span></div>
+    <div class="app-logo"></div>
     <div class="onboard-progress">
       <div class="progress-dot active" id="dot0"></div>
       <div class="progress-dot" id="dot1"></div>
@@ -140,21 +159,21 @@
     <button class="btn-skip" onclick="skipOnboard()">건너뛰기</button>
   </div>
 
-  <!-- Home -->
+  <!-- 홈 -->
   <div class="screen" id="screen-home">
-    <div style="margin-bottom:24px;">
-      <div class="app-logo">막<span>간</span></div>
+    <div style="margin-bottom:28px;">
+      <div class="app-logo"></div>
       <div class="app-tagline">MAKGAN · 웨이팅을 웨이팅하지 마세요</div>
     </div>
     <div class="section">
       <div class="section-label">웨이팅 중인 가게</div>
       <button class="loc-btn" id="locBtn" onclick="getLocation()">📍 현재 위치로 주변 가게 찾기</button>
-      <input class="input-field" type="text" id="storeName" placeholder="또는 가게 이름 직접 입력" oninput="onStoreInput()" style="margin-bottom:8px;" />
+      <input class="input-field" type="text" id="storeName" placeholder="또는 가게 이름 직접 입력" oninput="onStoreInput()" />
       <div id="storeResults"></div>
-      <div id="selectedStore" style="display:none; background:var(--accent-dim); border:1px solid rgba(139,127,245,0.3); border-radius:var(--r); padding:12px 16px; margin-top:8px;">
-        <div style="font-size:12px;color:var(--accent);margin-bottom:2px;">선택된 가게</div>
-        <div id="selectedStoreName" style="font-size:14px;font-weight:600;"></div>
-        <div id="selectedStoreAddr" style="font-size:12px;color:var(--text-sub);"></div>
+      <div id="selectedStore" style="display:none;" class="selected-store-box">
+        <div class="selected-store-label">선택된 가게</div>
+        <div id="selectedStoreName" class="selected-store-name"></div>
+        <div id="selectedStoreAddr" class="selected-store-addr"></div>
       </div>
     </div>
     <div class="section">
@@ -168,55 +187,56 @@
     <button class="btn-primary" id="homeBtn" onclick="startSearch()" disabled>AI 추천 받기</button>
   </div>
 
-  <!-- Loading -->
+  <!-- 로딩 -->
   <div class="screen" id="screen-loading" style="justify-content:center;">
     <div class="loading-wrap">
       <div class="loading-dots"><span></span><span></span><span></span></div>
       <div>
-        <div class="loading-text">주변 장소를 분석하고 있어요</div>
+        <div class="loading-text">AI가 분석하고 있어요</div>
         <div class="loading-step" id="loadingStep">가게 분위기 파악 중...</div>
       </div>
     </div>
   </div>
 
-  <!-- AI Recommend -->
+  <!-- AI 추천 -->
   <div class="screen" id="screen-recommend">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
       <div>
-        <div class="app-logo">막<span>간</span></div>
+        <div class="app-logo"></div>
         <div class="app-tagline">AI 추천</div>
       </div>
-      <div style="font-size:11px;color:var(--text-sub);font-family:'DM Mono',monospace;" id="recTimeLeft"></div>
+      <div style="font-size:12px;color:var(--text-sub);font-family:'DM Mono',monospace;background:var(--surface2);padding:6px 12px;border-radius:100px;" id="recTimeLeft"></div>
     </div>
     <div id="recCard"></div>
     <div class="action-row" id="recActions">
-      <button class="action-btn yes" onclick="goPlace()">좋아, 여기 갈게</button>
-      <button class="action-btn" onclick="nextRec()">다른 거</button>
-      <button class="action-btn" onclick="showList()">내가 고를게</button>
+      <button class="action-btn yes" onclick="goPlace()">여기 갈게</button>
+      <button class="action-btn" onclick="nextRec()">다른 곳</button>
+      <button class="action-btn" onclick="showList()">전체 보기</button>
     </div>
   </div>
 
-  <!-- Full List -->
+  <!-- 전체 목록 -->
   <div class="screen" id="screen-list">
-    <div style="margin-bottom:20px;">
-      <button onclick="goScreen('screen-recommend')" style="background:none;border:none;color:var(--text-sub);font-size:13px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;padding:0;margin-bottom:12px;">← 돌아가기</button>
-      <div class="app-logo" style="font-size:17px;">막<span>간</span> — 전체 목록</div>
+    <div style="margin-bottom:16px;">
+      <button onclick="goScreen('screen-recommend')" style="background:none;border:none;color:var(--text-sub);font-size:13px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:4px;">← 돌아가기</button>
+      <div class="app-logo"></div>
       <div style="font-size:13px;color:var(--text-sub);margin-top:4px;" id="listSub"></div>
     </div>
+    <div id="catFilter" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none;margin-bottom:12px;"></div>
     <div id="listContainer" style="overflow-y:auto;flex:1;"></div>
   </div>
 
-  <!-- Timer -->
+  <!-- 타이머 -->
   <div class="screen" id="screen-timer">
-    <div style="margin-bottom:16px;">
-      <div class="app-logo">막<span>간</span></div>
+    <div style="margin-bottom:20px;">
+      <div class="app-logo"></div>
       <div class="app-tagline">즐기고 계세요!</div>
     </div>
     <div class="timer-wrap">
       <div class="timer-ring">
-        <svg width="160" height="160" viewBox="0 0 160 160">
-          <circle class="track" cx="80" cy="80" r="70" />
-          <circle class="fill" id="timerArc" cx="80" cy="80" r="70" stroke-dasharray="439.82" stroke-dashoffset="0" />
+        <svg width="168" height="168" viewBox="0 0 168 168">
+          <circle class="track" cx="84" cy="84" r="74" />
+          <circle class="fill" id="timerArc" cx="84" cy="84" r="74" stroke-dasharray="464.96" stroke-dashoffset="0" />
         </svg>
         <div class="timer-center">
           <div class="timer-val" id="timerVal">--:--</div>
@@ -225,7 +245,7 @@
       </div>
       <div class="timer-status" id="timerStatus"></div>
     </div>
-    <div class="dest-card" id="destCard"></div>
+    <div class="dest-card" id="destCard" onclick="openKakaoMap()"></div>
     <div class="spacer"></div>
     <button class="btn-secondary" onclick="resetAll()">다시 검색하기</button>
   </div>
@@ -234,7 +254,6 @@
 <div class="toast" id="toast">⏰ 지금 출발하세요!</div>
 
 <script>
-  let claudeKey = '';
   let selectedTime = 40;
   let storeNameText = '';
   let storeX = null, storeY = null;
@@ -248,6 +267,7 @@
   let onboardStep = 0;
   let onboardAnswers = {};
   let storeSearchTimeout = null;
+  let selectedCategory = '전체';
 
   const onboardQuestions = [
     { q: '새로운 곳이 좋아요, 익숙한 곳이 편해요?', opts: ['새로운 곳 탐험하기', '검증된 곳이 편해요'] },
@@ -260,6 +280,37 @@
     document.getElementById(id).classList.add('active');
   }
 
+  const LOGO_SVG = `<svg width="110" height="40" viewBox="0 0 110 40" role="img" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FF6B35"/>
+        <stop offset="100%" stop-color="#FF9A5C"/>
+      </linearGradient>
+    </defs>
+    <text x="0" y="30" font-family="'Noto Sans KR', sans-serif" font-size="24" font-weight="900" fill="url(#lg)">[</text>
+    <text x="17" y="30" font-family="'Noto Sans KR', sans-serif" font-size="22" font-weight="900" fill="#1A1816" letter-spacing="-0.5">막간</text>
+    <text x="68" y="30" font-family="'Noto Sans KR', sans-serif" font-size="24" font-weight="900" fill="url(#lg)">]</text>
+  </svg>`;
+
+  const LOGO_SVG_XL = `<svg width="220" height="64" viewBox="0 0 220 64" role="img" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="lgxl" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FF6B35"/>
+        <stop offset="100%" stop-color="#FF9A5C"/>
+      </linearGradient>
+    </defs>
+    <text y="48" font-family="'Noto Sans KR', sans-serif" font-size="40" font-weight="900" text-anchor="middle" x="110">
+      <tspan fill="url(#lgxl)">[</tspan><tspan fill="#1A1816" letter-spacing="-1"> 막간 </tspan><tspan fill="url(#lgxl)">]</tspan>
+    </text>
+  </svg>`;
+
+  document.querySelectorAll('.app-logo').forEach(el => {
+    el.innerHTML = LOGO_SVG;
+  });
+  document.querySelectorAll('.app-logo-xl').forEach(el => {
+    el.innerHTML = LOGO_SVG_XL;
+  });
+
   function startApp() {
     onboardStep = 0;
     renderOnboard();
@@ -270,7 +321,7 @@
     const q = onboardQuestions[onboardStep];
     document.getElementById('onboard-container').innerHTML = `
       <div style="margin-bottom:28px;">
-        <div class="screen-title">${q.q}</div>
+        <div style="font-size:20px;font-weight:700;letter-spacing:-0.5px;line-height:1.4;color:var(--text);">${q.q}</div>
       </div>
       <div class="onboard-opts">
         ${q.opts.map((o, i) => `<button class="onboard-opt" onclick="selectOnboardOpt(${i}, this)">${o}</button>`).join('')}
@@ -290,15 +341,13 @@
     if (onboardStep < onboardQuestions.length - 1) { onboardStep++; renderOnboard(); }
     else goScreen('screen-home');
   }
-
   function skipOnboard() { goScreen('screen-home'); }
 
-  // 위치 기반 가게 찾기
   async function getLocation() {
     const btn = document.getElementById('locBtn');
     btn.textContent = '📍 위치 확인 중...';
     btn.disabled = true;
-    navigator.geolocation.getCurrentPosition(async (pos) => {
+    navigator.geolocation.getCurrentPosition(pos => {
       userX = pos.coords.longitude;
       userY = pos.coords.latitude;
       btn.textContent = '✓ 위치 확인됨 — 가게 이름을 검색하세요';
@@ -309,7 +358,6 @@
     });
   }
 
-  // 가게 검색
   function onStoreInput() {
     const val = document.getElementById('storeName').value.trim();
     document.getElementById('selectedStore').style.display = 'none';
@@ -330,15 +378,12 @@
       const places = data.documents || [];
       const container = document.getElementById('storeResults');
       if (!places.length) { container.innerHTML = ''; return; }
-      container.innerHTML = places.slice(0, 5).map((p, i) => `
-        <div class="store-item" onclick="selectStore('${p.place_name.replace(/'/g,"\\'")}', '${p.road_address_name || p.address_name}', ${p.x}, ${p.y})">
+      container.innerHTML = `<div style="margin-top:8px;">` + places.slice(0, 5).map(p => `
+        <div class="store-item" onclick="selectStore('${p.place_name.replace(/'/g,"\\'")}','${(p.road_address_name||p.address_name).replace(/'/g,"\\'")}',${p.x},${p.y})">
           <div class="store-item-name">${p.place_name}</div>
           <div class="store-item-addr">${p.road_address_name || p.address_name}</div>
-        </div>`).join('');
-    } catch(e) {
-      // 카카오 API 없으면 그냥 텍스트 입력 모드
-      document.getElementById('storeResults').innerHTML = '';
-    }
+        </div>`).join('') + `</div>`;
+    } catch(e) { document.getElementById('storeResults').innerHTML = ''; }
   }
 
   function selectStore(name, addr, x, y) {
@@ -354,8 +399,7 @@
   }
 
   function checkHome() {
-    const hasStore = storeNameText.length > 0;
-    document.getElementById('homeBtn').disabled = !hasStore;
+    document.getElementById('homeBtn').disabled = !storeNameText;
   }
 
   function updateTime(val) {
@@ -369,27 +413,25 @@
     goScreen('screen-loading');
     let stepIdx = 0;
     const stepInterval = setInterval(() => {
-      document.getElementById('loadingStep').textContent = loadingSteps[stepIdx % loadingSteps.length];
-      stepIdx++;
+      document.getElementById('loadingStep').textContent = loadingSteps[stepIdx++ % loadingSteps.length];
     }, 1200);
 
     try {
-      // 실제 주변 장소 가져오기 (카카오 API)
       let nearbyPlaces = [];
       const x = storeX || userX || 126.9780;
       const y = storeY || userY || 37.5665;
-      const radius = Math.min(selectedTime * 70, 800);
+      const radius = Math.min(selectedTime * 70, 900);
 
       try {
-        const keywords = ['마트', '편의점', '노래방', '쇼핑', '서점', '문화', '공원', '약국', '올리브영', '다이소'];
+        const keywords = ['편의점', '노래방', '서점', '올리브영', '다이소', '공원', '화장품', '문구', '쇼핑몰', '카페'];
         const results = await Promise.all(keywords.map(kw =>
           fetch(`/.netlify/functions/kakao?type=search_category&query=${encodeURIComponent(kw)}&x=${x}&y=${y}&radius=${radius}`)
             .then(r => r.json()).then(d => d.documents || []).catch(() => [])
         ));
         nearbyPlaces = results.flat().filter((p, i, arr) =>
           arr.findIndex(q => q.id === p.id) === i
-        ).slice(0, 30);
-      } catch(e) { console.log('카카오 에러:', e); }
+        ).slice(0, 40);
+      } catch(e) {}
 
       allPlaces = await getAIRecommendations(nearbyPlaces, x, y);
       currentRecIdx = 0;
@@ -397,8 +439,7 @@
       showRecommend();
     } catch(e) {
       clearInterval(stepInterval);
-      allPlaces = getMockPlaces();
-      currentRecIdx = 0;
+      allPlaces = [];
       showRecommend();
     }
   }
@@ -409,9 +450,8 @@
       ? nearbyPlaces.map(p => {
           const dx = (parseFloat(p.x) - x) * 88000;
           const dy = (parseFloat(p.y) - y) * 111000;
-          const dist = Math.round(Math.sqrt(dx*dx + dy*dy));
-          const walkMin = Math.max(1, Math.round(dist / 70));
-          return `${p.place_name} (${p.category_name}, 도보 ${walkMin}분, ${p.road_address_name || p.address_name})`;
+          const walkMin = Math.max(1, Math.round(Math.sqrt(dx*dx + dy*dy) / 70));
+          return `${p.place_name} (${p.category_name}, 도보 ${walkMin}분)`;
         }).join('\n')
       : '주변 장소 데이터 없음';
 
@@ -421,35 +461,28 @@
 남은 대기시간: ${selectedTime}분
 사용자 취향: ${pref}
 
-아래는 실제 카카오맵에서 가져온 주변 ${Math.min(selectedTime * 70, 800)}m 이내 장소 목록입니다:
+주변 장소 목록 (카카오맵 실제 데이터):
 ${placesInfo}
 
-위 가게의 분위기를 추론하고, 위 주변 장소 목록에서만 ${selectedTime}분 안에 다녀올 수 있는 곳 3~4개를 추천해주세요.
+위 가게의 분위기를 추론하고, 위 목록에서 ${selectedTime}분 안에 다녀올 수 있는 장소를 최대 20개 추천해주세요.
 조건:
-- 반드시 위 목록에 있는 장소만 추천 (없으면 빈 배열 반환)
+- 반드시 위 목록에 있는 장소만 추천
 - 왕복 도보 이동시간 + 체류시간 + 여유 5분 ≤ ${selectedTime}분
 - 웨이팅 중인 가게가 식당이면 다른 식당 제외, 카페면 다른 카페 제외
-- 노래방, 마트, 편의점, 서점, 쇼핑, 공원 등 다양한 장소 포함 가능
+- 편의점, 노래방, 서점, 공원, 쇼핑 등 자연스럽게 들를 수 있는 곳 위주
 
 JSON만 응답:
-[{"name":"장소명","category":"카테고리","rating":"4.3","walkMin":5,"stayMin":20,"reason":"20자 이내 추천 이유"}]`;
+[{"name":"장소명","category":"카테고리","walkMin":5,"stayMin":20,"reason":"20자 이내 추천 이유"}]
+(최대 20개, 조건에 맞는 곳 없으면 빈 배열)`;
 
     const res = await fetch('/.netlify/functions/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] })
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] })
     });
     const data = await res.json();
     const text = data.content?.[0]?.text || '[]';
     return JSON.parse(text.replace(/```json|```/g, '').trim());
-  }
-
-  function getMockPlaces() {
-    return [
-      { name: '모노하 편집샵', category: '편집샵', rating: '4.6', walkMin: 5, stayMin: 20, reason: '감성적인 소품 구경하기 좋아요' },
-      { name: '올리브영', category: '드럭스토어', rating: '4.2', walkMin: 3, stayMin: 22, reason: '가볍게 둘러보기 좋아요' },
-      { name: '근처 포토스팟 골목', category: '산책', rating: '4.5', walkMin: 4, stayMin: 21, reason: '예쁜 골목 사진 찍기 좋아요' },
-    ].filter(p => (p.walkMin * 2 + p.stayMin + 5) <= selectedTime);
   }
 
   function showRecommend() {
@@ -461,16 +494,17 @@ JSON만 응답:
   function renderRecCard() {
     const container = document.getElementById('recCard');
     if (!allPlaces.length) {
-      container.innerHTML = `<div style="text-align:center;padding:40px 0;color:var(--text-sub);font-size:14px;line-height:1.8;">조건에 맞는 장소를 찾지 못했어요.<br>시간을 늘리거나 다시 검색해보세요.</div>`;
+      container.innerHTML = `<div style="text-align:center;padding:48px 0 32px;color:var(--text-sub);font-size:14px;line-height:1.9;">조건에 맞는 장소를 찾지 못했어요.<br>시간을 늘리거나 다시 검색해보세요.</div>`;
       document.getElementById('recActions').style.display = 'none';
       return;
     }
+    document.getElementById('recActions').style.display = 'flex';
     const p = allPlaces[currentRecIdx % allPlaces.length];
     container.innerHTML = `
       <div class="place-card">
         <div class="place-card-top">
-          <div><div class="place-name">${p.name}</div><div class="place-cat">${p.category}</div></div>
-          <div class="place-rating">★ ${p.rating}</div>
+          <div class="place-name">${p.name}</div>
+          <div class="place-cat">${p.category}</div>
         </div>
         <div class="chips">
           <div class="chip">도보 ${p.walkMin}분</div>
@@ -484,24 +518,54 @@ JSON만 응답:
 
   function nextRec() { currentRecIdx = (currentRecIdx + 1) % allPlaces.length; renderRecCard(); }
 
+  const categories = ['전체', '편의점', '노래방', '서점', '공원', '쇼핑', '카페'];
+
   function showList() {
     goScreen('screen-list');
-    document.getElementById('listSub').textContent = `${selectedTime}분 안에 갈 수 있는 곳 ${allPlaces.length}개`;
-    document.getElementById('listContainer').innerHTML = allPlaces.map((p, i) => `
-      <div class="list-card" onclick="selectFromList(${i})">
-        <div><div class="list-name">${p.name}</div><div class="list-sub">${p.category} · ★ ${p.rating}</div></div>
-        <div><div class="list-walk">${p.walkMin}분</div><div class="list-time">체류 ${p.stayMin}분</div></div>
-      </div>`).join('');
+    selectedCategory = '전체';
+    renderList();
   }
 
+  function renderList() {
+    const filtered = selectedCategory === '전체'
+      ? allPlaces
+      : allPlaces.filter(p => p.category.includes(selectedCategory) || p.name.includes(selectedCategory));
+
+    document.getElementById('listSub').textContent = `${selectedTime}분 안에 갈 수 있는 곳 ${filtered.length}개`;
+    document.getElementById('catFilter').innerHTML = categories.map(c => `
+      <button onclick="filterCat('${c}')" style="padding:7px 15px;border-radius:100px;border:1.5px solid ${c===selectedCategory?'var(--accent)':'var(--border)'};background:${c===selectedCategory?'var(--accent-dim)':'var(--surface)'};color:${c===selectedCategory?'var(--accent)':'var(--text-sub)'};font-size:12px;font-weight:${c===selectedCategory?'600':'400'};cursor:pointer;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;transition:all 0.15s;">${c}</button>`).join('');
+
+    document.getElementById('listContainer').innerHTML = filtered.length
+      ? filtered.map(p => `
+        <div class="list-card" onclick="selectFromList(${allPlaces.indexOf(p)})">
+          <div><div class="list-name">${p.name}</div><div class="list-sub">${p.category}</div></div>
+          <div style="text-align:right;"><div class="list-walk">${p.walkMin}분</div><div class="list-time">체류 ${p.stayMin}분</div></div>
+        </div>`).join('')
+      : `<div style="text-align:center;padding:32px;color:var(--text-sub);font-size:13px;">해당 카테고리 장소가 없어요</div>`;
+  }
+
+  function filterCat(cat) { selectedCategory = cat; renderList(); }
   function selectFromList(idx) { currentPlace = allPlaces[idx]; goPlace(); }
+
+  function openKakaoMap() {
+    if (!currentPlace) return;
+    const query = encodeURIComponent(currentPlace.name);
+    const kakaoUrl = `kakaomap://search?q=${query}`;
+    const webUrl = `https://map.kakao.com/link/search/${query}`;
+    window.location.href = kakaoUrl;
+    setTimeout(() => window.open(webUrl, '_blank'), 1000);
+  }
 
   function goPlace() {
     goScreen('screen-timer');
     const p = currentPlace;
     document.getElementById('destCard').innerHTML = `
       <div class="dest-icon">📍</div>
-      <div><div class="dest-name">${p.name}</div><div class="dest-sub">도보 ${p.walkMin}분 · ${p.category}</div></div>`;
+      <div>
+        <div class="dest-name">${p.name}</div>
+        <div class="dest-sub">도보 ${p.walkMin}분 · ${p.category}</div>
+        <div class="dest-map-hint">탭하면 카카오맵으로 연결돼요</div>
+      </div>`;
     startTimer(selectedTime);
   }
 
@@ -510,7 +574,7 @@ JSON만 응답:
     totalSecs = timerSecs;
     if (timerInterval) clearInterval(timerInterval);
     updateTimerDisplay();
-    const alertAt = Math.max(0, timerSecs - Math.min(10 * 60, Math.floor(totalSecs * 0.25)));
+    const alertAt = Math.max(0, timerSecs - Math.min(10*60, Math.floor(totalSecs*0.25)));
     timerInterval = setInterval(() => {
       timerSecs--;
       updateTimerDisplay();
@@ -520,12 +584,11 @@ JSON만 응답:
   }
 
   function updateTimerDisplay() {
-    const m = Math.floor(timerSecs / 60);
-    const s = timerSecs % 60;
+    const m = Math.floor(timerSecs/60);
+    const s = timerSecs%60;
     document.getElementById('timerVal').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    const pct = timerSecs / totalSecs;
-    document.getElementById('timerArc').style.strokeDashoffset = 439.82 * (1 - pct);
-    const alertMin = Math.round(Math.min(10, selectedTime * 0.25));
+    document.getElementById('timerArc').style.strokeDashoffset = 464.96*(1-timerSecs/totalSecs);
+    const alertMin = Math.round(Math.min(10, selectedTime*0.25));
     document.getElementById('timerStatus').textContent = `${alertMin}분 전에 복귀 알림을 보내드릴게요`;
     if (timerSecs <= 300) {
       document.getElementById('timerArc').style.stroke = '#ef4444';
@@ -536,25 +599,24 @@ JSON만 응답:
   function showToast() {
     const t = document.getElementById('toast');
     t.classList.add('show');
-    if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    if (navigator.vibrate) navigator.vibrate([200,100,200]);
     setTimeout(() => t.classList.remove('show'), 4000);
   }
 
   function resetAll() {
     if (timerInterval) clearInterval(timerInterval);
-    storeNameText = ''; storeX = null; storeY = null;
-    document.getElementById('storeName').value = '';
-    document.getElementById('storeResults').innerHTML = '';
-    document.getElementById('selectedStore').style.display = 'none';
-    document.getElementById('timeSlider').value = 40;
-    document.getElementById('timeDisplay').textContent = '40분';
-    document.getElementById('homeBtn').disabled = true;
-    document.getElementById('timerArc').style.stroke = 'var(--accent)';
-    document.getElementById('timerArc').style.strokeDashoffset = '0';
-    document.getElementById('timerVal').style.color = 'var(--text)';
-    document.getElementById('locBtn').textContent = '📍 현재 위치로 주변 가게 찾기';
-    document.getElementById('locBtn').disabled = false;
-    allPlaces = [];
+    storeNameText=''; storeX=null; storeY=null; allPlaces=[];
+    document.getElementById('storeName').value='';
+    document.getElementById('storeResults').innerHTML='';
+    document.getElementById('selectedStore').style.display='none';
+    document.getElementById('timeSlider').value=40;
+    document.getElementById('timeDisplay').textContent='40분';
+    document.getElementById('homeBtn').disabled=true;
+    document.getElementById('timerArc').style.stroke='var(--accent)';
+    document.getElementById('timerArc').style.strokeDashoffset='0';
+    document.getElementById('timerVal').style.color='var(--text)';
+    document.getElementById('locBtn').textContent='📍 현재 위치로 주변 가게 찾기';
+    document.getElementById('locBtn').disabled=false;
     goScreen('screen-home');
   }
 

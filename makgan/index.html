@@ -388,15 +388,15 @@
       const radius = Math.min(selectedTime * 70, 800);
 
       try {
-        const keywords = ['편집샵', '소품샵', '서점', '공원', '산책로', '올리브영', '다이소'];
-        const results = await Promise.all(keywords.slice(0, 3).map(kw =>
+        const keywords = ['마트', '편의점', '쇼핑', '공원', '카페'];
+        const results = await Promise.all(keywords.map(kw =>
           fetch(`/.netlify/functions/kakao?type=search_category&query=${encodeURIComponent(kw)}&x=${x}&y=${y}&radius=${radius}`)
             .then(r => r.json()).then(d => d.documents || []).catch(() => [])
         ));
         nearbyPlaces = results.flat().filter((p, i, arr) =>
           arr.findIndex(q => q.id === p.id) === i
-        ).slice(0, 15);
-      } catch(e) {}
+        ).slice(0, 20);
+      } catch(e) { console.log('카카오 에러:', e); }
 
       allPlaces = await getAIRecommendations(nearbyPlaces, x, y);
       currentRecIdx = 0;
@@ -414,11 +414,13 @@
     const pref = Object.values(onboardAnswers).join(', ') || '특별한 선호 없음';
     const placesInfo = nearbyPlaces.length > 0
       ? nearbyPlaces.map(p => {
-          const dist = Math.round(Math.sqrt(Math.pow((p.x - x) * 88000, 2) + Math.pow((p.y - y) * 111000, 2)));
+          const dx = (parseFloat(p.x) - x) * 88000;
+          const dy = (parseFloat(p.y) - y) * 111000;
+          const dist = Math.round(Math.sqrt(dx*dx + dy*dy));
           const walkMin = Math.max(1, Math.round(dist / 70));
           return `${p.place_name} (${p.category_name}, 도보 ${walkMin}분, ${p.road_address_name || p.address_name})`;
         }).join('\n')
-      : '실제 주변 장소 데이터 없음 (한국 도심 기준으로 추천해주세요)';
+      : '주변 장소 데이터 없음';
 
     const prompt = `웨이팅 중 틈새시간 추천 AI입니다.
 
@@ -426,16 +428,17 @@
 남은 대기시간: ${selectedTime}분
 사용자 취향: ${pref}
 
-주변 장소 목록:
+아래는 실제 카카오맵에서 가져온 주변 ${Math.min(selectedTime * 70, 800)}m 이내 장소 목록입니다:
 ${placesInfo}
 
-위 가게의 분위기를 리뷰 키워드로 추론하고, ${selectedTime}분 안에 다녀올 수 있는 장소 4곳을 추천해주세요.
+위 가게의 분위기를 추론하고, 위 주변 장소 목록에서만 ${selectedTime}분 안에 다녀올 수 있는 곳 3~4개를 추천해주세요.
+조건:
+- 반드시 위 목록에 있는 장소만 추천 (없으면 빈 배열 반환)
 - 왕복 도보 이동시간 + 체류시간 + 여유 5분 ≤ ${selectedTime}분
 - 웨이팅 중인 가게와 같은 카테고리(식사, 카페, 음료) 제외
-- 주변 장소 목록에서 선택하되, 없으면 실제 있을 법한 장소로 추천
 
 JSON만 응답:
-[{"name":"장소명","category":"카테고리","rating":"4.5","walkMin":5,"stayMin":20,"reason":"20자 이내 추천 이유"}]`;
+[{"name":"장소명","category":"카테고리","rating":"4.3","walkMin":5,"stayMin":20,"reason":"20자 이내 추천 이유"}]`;
 
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',

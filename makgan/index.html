@@ -381,14 +381,14 @@
       const radius = Math.min(selectedTime * 70, 800);
 
       try {
-        const keywords = ['마트', '편의점', '쇼핑', '공원', '카페'];
+        const keywords = ['마트', '편의점', '노래방', '쇼핑', '서점', '문화', '공원', '약국', '올리브영', '다이소'];
         const results = await Promise.all(keywords.map(kw =>
           fetch(`/.netlify/functions/kakao?type=search_category&query=${encodeURIComponent(kw)}&x=${x}&y=${y}&radius=${radius}`)
             .then(r => r.json()).then(d => d.documents || []).catch(() => [])
         ));
         nearbyPlaces = results.flat().filter((p, i, arr) =>
           arr.findIndex(q => q.id === p.id) === i
-        ).slice(0, 20);
+        ).slice(0, 30);
       } catch(e) { console.log('카카오 에러:', e); }
 
       allPlaces = await getAIRecommendations(nearbyPlaces, x, y);
@@ -428,7 +428,8 @@ ${placesInfo}
 조건:
 - 반드시 위 목록에 있는 장소만 추천 (없으면 빈 배열 반환)
 - 왕복 도보 이동시간 + 체류시간 + 여유 5분 ≤ ${selectedTime}분
-- 웨이팅 중인 가게와 같은 카테고리(식사, 카페, 음료) 제외
+- 웨이팅 중인 가게가 식당이면 다른 식당 제외, 카페면 다른 카페 제외
+- 노래방, 마트, 편의점, 서점, 쇼핑, 공원 등 다양한 장소 포함 가능
 
 JSON만 응답:
 [{"name":"장소명","category":"카테고리","rating":"4.3","walkMin":5,"stayMin":20,"reason":"20자 이내 추천 이유"}]`;

@@ -117,18 +117,13 @@
 <body>
 <div class="phone">
 
-  <!-- Config -->
+  <!-- Config 화면 제거 — 바로 온보딩으로 -->
   <div class="screen active" id="screen-config" style="justify-content:center;">
     <div style="margin-bottom:32px;">
       <div class="app-logo">막<span>간</span></div>
       <div class="app-tagline">MAKGAN · 웨이팅을 웨이팅하지 마세요</div>
     </div>
-    <div class="config-card">
-      <div class="config-label">Claude API Key</div>
-      <input class="input-field" type="password" id="claudeKey" placeholder="sk-ant-..." />
-    </div>
-    <button class="btn-primary" onclick="saveConfig()">시작하기</button>
-    <p style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:16px;line-height:1.6;">API 키는 이 기기에만 저장되며<br>외부로 전송되지 않습니다</p>
+    <button class="btn-primary" onclick="startApp()">시작하기</button>
   </div>
 
   <!-- Onboarding -->
@@ -265,9 +260,7 @@
     document.getElementById(id).classList.add('active');
   }
 
-  function saveConfig() {
-    claudeKey = document.getElementById('claudeKey').value.trim();
-    if (!claudeKey) { alert('Claude API 키를 입력해주세요.'); return; }
+  function startApp() {
     onboardStep = 0;
     renderOnboard();
     goScreen('screen-onboard');
@@ -440,9 +433,9 @@ ${placesInfo}
 JSON만 응답:
 [{"name":"장소명","category":"카테고리","rating":"4.3","walkMin":5,"stayMin":20,"reason":"20자 이내 추천 이유"}]`;
 
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/.netlify/functions/claude', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': claudeKey, 'anthropic-version': '2023-06-01' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] })
     });
     const data = await res.json();
